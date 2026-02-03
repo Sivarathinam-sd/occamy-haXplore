@@ -1,18 +1,9 @@
-<!-- <!DOCTYPE html>
-<html>
-<head>
-    <title>Index</title>
-</head>
-<body>
-    <h2>Select Role</h2>
-    <a href="admin_login.php">Admin</a><br><br>
-    <a href="register.php?role=farmer">Farmer</a><br><br>
-    <a href="register.php?role=officer">Officer</a>
-</body>
-</html>  -->
+<?php
+session_start();
+$role = $_GET['role'] ?? '';
+?>
 <!DOCTYPE html>
 <html>
-
 <head>
     <title>Select Role</title>
     <style>
@@ -25,7 +16,6 @@
             align-items: center;
             margin: 0;
         }
-
         .container {
             background: #fff;
             padding: 30px 40px;
@@ -34,68 +24,58 @@
             text-align: center;
             width: 300px;
         }
-
-        h2 {
-            margin-bottom: 25px;
-            color: #333;
-        }
-
-        form {
-            margin-bottom: 15px;
-        }
-
         button {
             width: 100%;
             padding: 12px;
-            font-size: 16px;
+            margin-top: 10px;
             border: none;
             border-radius: 6px;
             cursor: pointer;
-            transition: 0.3s;
         }
-
-        .admin {
-            background-color: #b03a2e;
-            color: white;
-        }
-
-        .farmer {
-            background-color: #2e7d32;
-            color: #2d3436;
-        }
-
-        .officer {
-            background-color: #1565c0;
-            color: white;
-        }
-
-        button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 12px rgba(0, 0, 0, 0.2);
-        }
+        .admin { background: #b03a2e; color: #fff; }
+        .farmer { background: #2e7d32; }
+        .officer { background: #1565c0; color: #fff; }
+        .login { background: #4e73df; color: #fff; }
+        .register { background: #1cc88a; color: #fff; }
     </style>
 </head>
 
 <body>
+<div class="container">
 
-    <div class="container">
-        <h2>Select Role</h2>
+<?php if (!$role): ?>
 
-        <form action="admin_login.php" method="get">
-            <button class="admin" type="submit">Admin</button>
-        </form>
+    <h2>Select Role</h2>
 
-        <form action="register.php" method="get">
-            <input type="hidden" name="role" value="farmer">
-            <button class="farmer" type="submit">Farmer</button>
-        </form>
+    <form action="admin_login.php" method="get">
+        <button class="admin">Admin</button>
+    </form>
 
-        <form action="register.php" method="get">
-            <input type="hidden" name="role" value="officer">
-            <button class="officer" type="submit">Officer</button>
-        </form>
-    </div>
+    <form method="get">
+        <input type="hidden" name="role" value="farmer">
+        <button class="farmer">Farmer</button>
+    </form>
 
+    <form method="get">
+        <input type="hidden" name="role" value="officer">
+        <button class="officer">Officer</button>
+    </form>
+
+<?php else: ?>
+
+    <h2><?= ucfirst($role) ?></h2>
+
+    <form action="login.php" method="get">
+        <button class="login">Already Registered? Login</button>
+    </form>
+
+    <form action="register.php" method="get">
+        <input type="hidden" name="role" value="<?= $role ?>">
+        <button class="register">New User? Register</button>
+    </form>
+
+<?php endif; ?>
+
+</div>
 </body>
-
 </html>

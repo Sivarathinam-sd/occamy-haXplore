@@ -4,13 +4,20 @@ require "jwt_helper.php";
 session_start();
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
     $unm = $_POST['unm'];
     $pwd = $_POST['pwd'];
 
     $res = $conn->query("SELECT * FROM users WHERE unm='$unm' AND pwd='$pwd'");
 
     if ($res->num_rows == 1) {
+
         $row = $res->fetch_assoc();
+
+        // ❌ Prevent admin from logging here
+        if ($row['role'] == 1) {
+            die("Admin must login from Admin Login page");
+        }
 
         /* 🔐 Generate JWT */
         $token = generateJWT([
@@ -21,16 +28,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         setcookie("jwt", $token, time() + 3600, "/", "", false, true);
 
-        /* ✅ SESSION SET (IMPORTANT FIX) */
         $_SESSION['id'] = $row['id'];
         $_SESSION['role'] = $row['role'];
 
-        /* ✅ ROLE BASED REDIRECT */
-        if ($row['role'] == 'admin') {
-            header("Location: admin_sales_view.php");
-        } else {
-            header("Location: sales_form.php");
-        }
+        /* ✅ Farmer & Officer go to same page */
+        header("Location: sales_form.php");
         exit;
 
     } else {
@@ -38,6 +40,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 }
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -161,3 +164,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 </body>
 </html>
+
+
+
