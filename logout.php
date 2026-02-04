@@ -11,5 +11,5 @@ if (isset($_COOKIE['jwt'])) {
 }
 
 /* 🔁 Redirect to role selection */
-header("Location: admin_login.php");
+header("Location: index.php");
 exit;

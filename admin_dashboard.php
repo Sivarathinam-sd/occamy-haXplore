@@ -109,6 +109,9 @@ $totalSales   = $conn->query("SELECT COUNT(*) c FROM sales")->fetch_assoc()['c']
     <div class="actions">
         <a href="admin_sales_view.php" class="blue">View Sales</a>
         <a href="admin_users.php" class="green">View Users</a>
+        <a href="officer_form.php" class="blue">Sample Distribution</a>
+        <a href="officer_form.php" class="blue">Show Sample Distribution</a>
+        
     </div>
 
 </div>

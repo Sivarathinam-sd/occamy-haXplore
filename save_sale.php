@@ -12,7 +12,7 @@ $quantity     = $_POST['quantity'];
 $mode         = $_POST['mode'];
 $repeat_order = $_POST['repeat_order'];
 
-$$sql = "INSERT INTO sales
+$sql = "INSERT INTO sales
 (user_id, sale_type, buyer_name, product_sku, pack_size, quantity, mode, repeat_order)
 VALUES
 ('$user_id','$sale_type','$buyer_name','$product_sku','$pack_size','$quantity','$mode','$repeat_order')";
