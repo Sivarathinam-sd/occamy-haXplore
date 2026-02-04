@@ -22,7 +22,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $_SESSION['role'] = 1;
 
         /* ✅ REDIRECT TO ADMIN PAGE */
-        header("Location: admin_sales_view.php");
+        header("Location: admin_dashboard.php");
         exit;
 
     } else {
